@@ -40,7 +40,7 @@ jobs:
 
           # Clone repository using HTTPS URL without token
           git clone https://github.com/choshitautetsu/grade-api-gitops.git
-          cd gitops
+          cd grade-api-gitops
 
           if [[ "$OSTYPE" == "darwin"* ]]; then
             sed -i '' "s|image: ghcr.io/${{ github.repository }}:.*|image: ghcr.io/${{ github.repository }}:${{ github.sha }}|g" deployment.yaml
