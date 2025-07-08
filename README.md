@@ -23,6 +23,10 @@ helm install argocd argo/argo-cd --namespace argocd
 
 ```bash
 kubectl port-forward svc/argocd-server -n argocd 8080:80
+
+kubectl -n argo port-forward --address 0.0.0.0 svc/argo-server 2746:2746 > /dev/null &
+
+kubectl -n argocd port-forward --address 0.0.0.0 svc/argocd-server 8080:80 > /dev/null &
 ```
 
 ## Retrieve Credentials
@@ -30,6 +34,7 @@ kubectl port-forward svc/argocd-server -n argocd 8080:80
 ```bash
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
+
 ## ArgoCD Application
 
 ```yaml
@@ -59,12 +64,12 @@ To allow Kubernetes to pull images from GitHub Container Registry:
 
 ```yaml
 kubectl create secret docker-registry ghcr-secret \\
-  --docker-server=ghcr.io \\
-  --docker-username=YOUR_USERNAME \\
-  --docker-password=YOUR_PAT \\
-  --namespace=default
+--docker-server=ghcr.io \\
+--docker-username=YOUR_USERNAME \\
+--docker-password=YOUR_PAT \\
+--namespace=default
 ```
 
-### Become a Cloud and DevOps Engineer
+### Become a Cloud and DevOps Engineer...
 
 Visit https://rayanslim.com
